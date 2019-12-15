@@ -1,12 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import axios, {AxiosResponse} from './axios'
+const baseURL = 'http://loaclhost:8000'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+interface User {
+  name: string;
+  age: number;
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+let user: User = {
+  name: '张三',
+  age: 18
+}
+
+axios<User>({
+  method: 'get',
+  url: baseURL + '/get', // 基础路径拼接
+  params: user // 查询字符串放到问好后面
+}).then((response: AxiosResponse<User>) => {
+  console.log(response.data)
+  return response.data
+})
